@@ -1,0 +1,11 @@
+org\aalto\anton\Meta.class
+io\swagger\api\ReferenceDataApi.class
+org\aalto\anton\ARun.class
+org\aalto\anton\Names.class
+org\aalto\anton\Country.class
+org\aalto\anton\CountryResource.class
+org\aalto\anton\Name.class
+org\aalto\anton\Countries.class
+org\aalto\anton\Link.class
+org\aalto\anton\Simple.class
+org\aalto\anton\ReferenceCountries.class

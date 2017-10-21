@@ -1,0 +1,99 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:sec="http://cxf.apache.org/configuration/security"
+  xmlns:cxf="http://camel.apache.org/schema/cxf"
+  xmlns:http="http://cxf.apache.org/transports/http/configuration"
+  xmlns:jaxws="http://java.sun.com/xml/ns/jaxws"
+  xsi:schemaLocation="
+      http://cxf.apache.org/configuration/security
+      http://camel.apache.org/schema/cxf/camel-cxf.xsd
+      http://cxf.apache.org/schemas/configuration/security.xsd
+      http://cxf.apache.org/transports/http/configuration
+      http://cxf.apache.org/schemas/configuration/http-conf.xsd
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+<!--<bean id="consumer" class="org.apache.cxf.rs.security.oauth2.client.Consumer">
+    <property name="key" value="123456789"/>
+    <property name="secret" value="987654321"/>
+</bean>  -->
+<cxf:cxfEndpoint id="rsClient" address="http://freegeoip.net" serviceClass="io.swagger.api.ReferenceDataApi" loggingFeatureEnabled="true"/>
+<bean id="consumer" class="org.apache.cxf.rs.security.oauth2.client.Consumer">
+   <property name="clientId" value="m73545e3zk96w7fva2g8rdrs"/>
+   <property name="clientSecret" value="hDadb974B7"/>
+</bean>
+<bean id="bearerAuthSupplier" class="org.apache.cxf.rs.security.oauth2.client.BearerAuthSupplier">
+   <!-- access token -->
+   
+   <property name="accessToken" value="x79ra74cdrjyfw7jm9zjnm53"/>
+   <!-- refresh token and the info needed to use it to refersh the expired access token proactively or in response to 401 -->
+   <property name="refreshToken" value="87654321"/>
+   <!-- 
+       Set this property for the authenticator to check the access token expiry date and refresh the token proactively.
+       Note that this property can also become effective after the first token refresh as it is not known in advance when 
+       the injected access token will expire
+   -->
+   
+   <property name="refreshEarly" value="true"/>
+   <!-- client OAuth2 id and secret - needed to use a refresh token grant -->
+   <property name="consumer" ref="consumer"/> 
+   <!-- address of OAuth2 token service that supports a refresh token grant -->
+   <property name="accessTokenServiceUri" value="https://api.lufthansa.com/v1/oauth/token"/> 
+</bean>
+ <!-- <http:conduit name="{https://api.lufthansa.com/v1/oauth/token}WebClient.http-conduit"> -->
+ 
+<http:conduit name="https://api.lufthansa.com/v1/oauth/.*">
+   <http:authSupplier bean="consumer"/>
+ 
+    <http:tlsClientParameters>
+      <sec:keyManagers keyPassword="Puhemies17">
+        <sec:keyStore type="JKS" password="Puhemies17"
+                      file="C:/Stuff/jks/keystore.jks"/>
+      </sec:keyManagers>
+      <sec:trustManagers>
+        <sec:keyStore type="JKS" password="Puhemies17"
+                      file="C:/Stuff/jks/truststore.jks"/>
+      </sec:trustManagers>
+      <sec:cipherSuitesFilter>
+        <!-- these filters ensure that a ciphersuite with
+             export-suitable or null encryption is used,
+             but exclude anonymous Diffie-Hellman key change as
+             this is vulnerable to man-in-the-middle attacks -->
+        <sec:include>.*_EXPORT_.*</sec:include>
+        <sec:include>.*_EXPORT1024_.*</sec:include>
+        <sec:include>.*_WITH_DES_.*</sec:include>
+        <sec:include>.*_WITH_AES_.*</sec:include>
+        <sec:include>.*_WITH_NULL_.*</sec:include>
+        <sec:exclude>.*_DH_anon_.*</sec:exclude>
+      </sec:cipherSuitesFilter>
+    </http:tlsClientParameters>
+    <http:client AutoRedirect="true" Connection="Keep-Alive"/>
+  </http:conduit>
+  <!-- NEW CONDUIT -->
+   <http:conduit name="https://api.lufthansa.com/v1/references/.*">
+   <http:authSupplier bean="bearerAuthSupplier"/>
+    <http:tlsClientParameters>
+      <sec:keyManagers keyPassword="Puhemies17">
+        <sec:keyStore type="JKS" password="Puhemies17"
+                      file="C:/Stuff/jks/keystore.jks"/>
+      </sec:keyManagers>
+      <sec:trustManagers>
+        <sec:keyStore type="JKS" password="Puhemies17"
+                      file="C:/Stuff/jks/truststore.jks"/>
+      </sec:trustManagers>
+      <sec:cipherSuitesFilter>
+        <!-- these filters ensure that a ciphersuite with
+             export-suitable or null encryption is used,
+             but exclude anonymous Diffie-Hellman key change as
+             this is vulnerable to man-in-the-middle attacks -->
+        <sec:include>.*_EXPORT_.*</sec:include>
+        <sec:include>.*_EXPORT1024_.*</sec:include>
+        <sec:include>.*_WITH_DES_.*</sec:include>
+        <sec:include>.*_WITH_AES_.*</sec:include>
+        <sec:include>.*_WITH_NULL_.*</sec:include>
+        <sec:exclude>.*_DH_anon_.*</sec:exclude>
+      </sec:cipherSuitesFilter>
+    </http:tlsClientParameters>
+    <http:client AutoRedirect="true" Connection="Keep-Alive"/>
+
+  </http:conduit>
+</beans>
