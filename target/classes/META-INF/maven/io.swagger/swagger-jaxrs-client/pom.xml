@@ -123,14 +123,23 @@
       <scope>test</scope>
     </dependency>
     <!-- CXF Client -->
-<!--     <dependency> -->
-<!--         <groupId>org.apache.cxf</groupId> -->
-<!--         <artifactId>cxf-rt-rs-client</artifactId> -->
-<!--         <version>${cxf-version}</version> -->
-<!-- <scope>provided</scope> -->
-<!--     </dependency> -->
- <dependency> <groupId>org.apache.camel</groupId> <artifactId>camel-cxf</artifactId> <version>${camel-version}</version>
- </dependency>   
+    <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-rs-client</artifactId>
+        <version>${cxf-version}</version>
+<scope>provided</scope>
+    </dependency>
+ <dependency> 
+ <groupId>org.apache.camel</groupId> 
+ <artifactId>camel-cxf</artifactId> 
+ <version>${camel-version}</version>
+ </dependency>
+ <dependency>
+    <groupId>org.apache.camel</groupId>
+    <artifactId>camel-metrics</artifactId>
+ <version>${camel-version}</version>
+     <!-- use the same version as your Camel core version -->
+</dependency>   
 <!--      CXF server -->
 <!--         <dependency> -->
 <!--         <groupId>com.fasterxml.jackson.core</groupId> -->
@@ -157,11 +166,11 @@
     <artifactId>jackson-jaxrs-json-provider</artifactId>
     <version>2.8.9</version>
 </dependency> 
-<!-- <dependency> -->
-<!--   <groupId>org.apache.cxf</groupId> -->
-<!--   <artifactId>cxf-rt-rs-security-oauth2</artifactId> -->
-<!--   <version>LATEST</version> -->
-<!-- </dependency> -->
+<dependency>
+  <groupId>org.apache.cxf</groupId>
+  <artifactId>cxf-rt-rs-security-oauth2</artifactId>
+  <version>${cxf-version}</version>
+</dependency>
 <!-- <dependency> -->
 <!--     <groupId>org.springframework</groupId> -->
 <!--     <artifactId>spring-context</artifactId> -->
@@ -173,16 +182,16 @@
   <version>LATEST</version>
 <!--     <version>4.3.1.RELEASE</version> -->
 </dependency>
-<dependency>
-    <groupId>javax.xml</groupId>
-    <artifactId>jaxb-api</artifactId>
-    <version>2.1</version>
-</dependency>
-<dependency>
-    <groupId>com.sun.xml.bind</groupId>
-    <artifactId>jaxb-impl</artifactId>
-    <version>2.1</version>
-</dependency>
+<!-- <dependency> -->
+<!--     <groupId>javax.xml</groupId> -->
+<!--     <artifactId>jaxb-api</artifactId> -->
+<!--     <version>2.1</version> -->
+<!-- </dependency> -->
+<!-- <dependency> -->
+<!--     <groupId>com.sun.xml.bind</groupId> -->
+<!--     <artifactId>jaxb-impl</artifactId> -->
+<!--     <version>2.1</version> -->
+<!-- </dependency> -->
 <dependency>
   <groupId>com.fasterxml.jackson.dataformat</groupId>
   <artifactId>jackson-dataformat-xml</artifactId>
